@@ -27,7 +27,7 @@ import win32api
 
 
 class GUIManager:
-    def __init__(self, resolve_ai):
+    def __init__(self, cliprocks):
         """
         Initializes the GUI Manager.
         """
@@ -35,9 +35,9 @@ class GUIManager:
         # Positionner la fenêtre à l'endroit de la souris
         self.mouse = win32api.GetCursorPos()
 
-        self.resolve_ai = resolve_ai
+        self.cliprocks = cliprocks
         self.root = tk.Tk()
-        self.root.title("ResolveAI Plugins")
+        self.root.title("ClipRocks Plugins")
         # self.root.geometry("+x+yxWxH")
         self.root.geometry(f"+{self.mouse[0]}+{self.mouse[1]}")
 
@@ -66,7 +66,7 @@ class GUIManager:
         Adds a button dynamically to the GUI.
         """
         def on_click():
-            self.resolve_ai.on_button_click(button_name)
+            self.cliprocks.on_button_click(button_name)
 
         button = tk.Button(
             self.button_frame,

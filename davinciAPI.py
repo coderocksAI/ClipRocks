@@ -63,7 +63,7 @@ class DaVinciAPI:
 
     def _create_bin(self, rootFolder):
         """
-        Create the virtual folder bin in the media pool. `__resolveAI__`
+        Create the virtual folder bin in the media pool. `__ClipRocks__`
         :param rootFolder: The root folder of the media pool.
         :return: The newly created media pool folder object.
         """
@@ -72,7 +72,7 @@ class DaVinciAPI:
 
     def get_or_create_bin(self):
         """
-        Retrieve the `__resolveAI__` bin or create it if it doesn't exist.
+        Retrieve the `__ClipRocks__` bin or create it if it doesn't exist.
         """
         rootFolder = self.media_pool.GetRootFolder()
         binFolder = self._get_bin_if_exists(rootFolder)
@@ -82,7 +82,7 @@ class DaVinciAPI:
 
     def _get_bin_if_exists(self, rootFolder):
         """
-        Check and get if the `__resolveAI__` bin already exists in GUI.
+        Check and get if the `__ClipRocks__` bin already exists in GUI.
         """
         for folder in rootFolder.GetSubFolderList():
             if folder.GetName() == self.binName:
@@ -92,7 +92,7 @@ class DaVinciAPI:
         
     def add_to_bin(self, binFolder, file_path):
         """
-        Adds a file to the __resolveAI__ bin in DaVinci Resolve.
+        Adds a file to the __ClipRocks__ bin in DaVinci Resolve.
         !!!Note : AddItemsToMediaPool considers the case of the path when verifying accuracy!
         (2) CONFIGURE THE PATH IN MEDIA STORAGE (can be removed from preferences) Todo: automatic addition.
         """
