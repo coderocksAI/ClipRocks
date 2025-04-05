@@ -33,10 +33,10 @@ from clipElement import ClipElement
 from davinciAPI import DaVinciAPI
 import inspect
 
-class ResolveAI:
+class ClipRocks:
     def __init__(self, resolve):
         """
-        Initializes the ResolveAI engine as the main entry point of the system every time DaVinci Resolve 
+        Initializes the ClipRocks engine as the main entry point of the system every time DaVinci Resolve 
         is launched (keyboard shortcut). It coordinates the context between different types of clipboard 
         elements (see clipElement) and the plugin initialization loop (see HandlePlugins and plugin_instance.
         display_button). Plugin execution occurs when an available button is clicked (see on_button_click).
@@ -60,10 +60,10 @@ class ResolveAI:
 
             # for logic -> ?blackmagic?/rootName/PluginCode (light)
             # for storage -> ?base?/rootName/[venv,assets,cache] (can be big)
-            "rootName": "resolveAI",  
+            "rootName": "ClipRocks",  
 
             # Virtual folder in DaVinci GUI.
-            "binName": "__resolveAI__", 
+            "binName": "__ClipRocks__", 
 
             # for storage
             "base": os.path.expanduser("~\\Documents"),
@@ -273,5 +273,5 @@ class ResolveAI:
         # Run the GUI after all buttons are registered
         self.gui_manager.run()
                 
-resolveAI = ResolveAI(resolve)
-resolveAI.HandlePlugins()
+ClipRocks = ClipRocks(resolve)
+ClipRocks.HandlePlugins()
