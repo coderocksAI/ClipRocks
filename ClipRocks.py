@@ -176,7 +176,7 @@ class ClipRocks:
         # Check Name project from davinci Resolve
         project_name = self.davinciAPI.getCurrentProjectName()
         if not project_name or project_name.strip() == "" or project_name == "Untitled Project":
-            print("Alerte : Enregistrez votre projet DaVinci Resolve pour créer un chemin d'assets dédié.")
+            print("Alert : Save your DaVinci Resolve project to create a dedicated assets path.")
             return None
 
         # make specific folder from project name
