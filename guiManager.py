@@ -31,7 +31,7 @@ class GUIManager:
         Initializes the GUI Manager.
         """
         
-        # Positionner la fenêtre à l'endroit de la souris
+        # Position the window at the position of the mouse
         self.mouse = win32api.GetCursorPos()
 
         self.cliprocks = cliprocks
