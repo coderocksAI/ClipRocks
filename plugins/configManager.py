@@ -88,7 +88,6 @@ class ConfigManager:
         """
         Checks if the configuration file exists.
         """
-        #print(self.configPath)
         return os.path.exists(self.configPath)
 
     def read_config(self, use_cache=True) -> dict:
@@ -115,11 +114,11 @@ class ConfigManager:
         if self.is_config_file_exists():
             raise KeyError("Write_config is not allowed to overwrite an existing configuration.")
 
-        # Convertir en JSON sans échappement
-        json_string = json.dumps(config, indent=4)  # Génère le JSON normalement
-        json_string = json_string.replace("\\\\", "\\")  # Remplace les \\ par \
+        # Convert to JSON without escaping
+        json_string = json.dumps(config, indent=4)  # Generate the JSON normally
+        json_string = json_string.replace("\\\\", "\\")  # Replace \\ by \
 
-        # Écrire le JSON en mode texte brut
+        # Write the JSON in plain text mode
         with open(self.configPath, "w", encoding="utf-8") as f:
             f.write(json_string)
 
