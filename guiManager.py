@@ -31,7 +31,7 @@ class GUIManager:
         Initializes the GUI Manager.
         """
         
-        # Position the window at the position of the mouse
+        # define x,y window at the location of the mouse
         self.mouse = win32api.GetCursorPos()
 
         self.cliprocks = cliprocks
@@ -49,13 +49,32 @@ class GUIManager:
         self.button_frame.pack(fill=tk.BOTH, expand=True)
 
     def disable_close_focus_out(self):
+        """
+        Disables the automatic closure of the window when it loses focus. This 
+        method unbinds the "<FocusOut>" event from the root widget, preventing the
+        window from being closed when the user clicks outside of it. Use this 
+        method to revert the behavior set by `enable_close_focus_out()` if needed.
+        """
         self.root.unbind("<FocusOut>")
 
     def enable_close_focus_out(self):
+        """
+        Enables the automatic closure of the window when it loses focus.  This method 
+        binds the "<FocusOut>" event to the `close_on_focus_out` method, causing the 
+        window to be closed when the user clicks outside of it. Use this method if you
+        want the application to automatically close the window on a focus out event.
+        To disable this behavior, use the `disable_close_focus_out()` method.
+        """
         self.root.bind("<FocusOut>", self.close_on_focus_out)
 
     def close_on_focus_out(self, event):
-        print("declenchement du close_on_focus_out")
+        """
+        Closes the window when it loses focus. This method is used to automatically 
+        close a window when the user clicks outside of it. However, be cautious when
+        creating new windows, as this can inadvertently trigger a focus out event 
+        and cause an unintended closure of the application. To disable this behavior,
+        use the `disable_close_focus_out()` method.
+        """
         event.widget.destroy()
         exit(0)
 
@@ -84,4 +103,7 @@ class GUIManager:
         self.root.mainloop()
 
     def exit(self):
+        """
+        Closes or destroys the main window associated with the GUI managed by this instance.
+        """
         self.root.destroy()
