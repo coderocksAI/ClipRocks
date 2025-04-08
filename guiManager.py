@@ -22,7 +22,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import tkinter as tk
-# import ctypes
 import win32api     
 
 
@@ -38,7 +37,6 @@ class GUIManager:
         self.cliprocks = cliprocks
         self.root = tk.Tk()
         self.root.title("ClipRocks Plugins")
-        # self.root.geometry("+x+yxWxH")
         self.root.geometry(f"+{self.mouse[0]}+{self.mouse[1]}")
 
         self.root.config(width=100)
