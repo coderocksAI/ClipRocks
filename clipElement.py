@@ -72,27 +72,26 @@ class ClipElement:
         """
         Reads files copied to the clipboard.
         """
-        if not self._open_clipboard(None):  # Ouvre le presse-papiers
+        if not self._open_clipboard(None):
             raise Exception("Unable to open the clipboard.")
         
         try:
-            # Vérifie si le format CF_HDROP est disponible
             if not self._is_clipboard_format_available(self.CF_HDROP):
                 print("No files found in the clipboard.")
                 return []
             
-            # Récupère le handle des données du presse-papiers
+            # Retrieves the handle to the clipboard data
             handle = self._get_clipboard_data(self.CF_HDROP)
             if not handle:
                 raise Exception("Error retrieving CF_HDROP data.")
             
-            # Compte le nombre de fichiers
+            # Counts the number of files
             num_files = self._drag_query_file(handle, 0xFFFFFFFF, None, 0)
             if num_files == 0:
                 print("No files detected.")
                 return []
 
-            # Lit les chemins des fichiers
+            # Reads the paths of the files
             files = []
             for i in range(num_files):
                 buffer = ctypes.create_unicode_buffer(260)  # Buffer to store the path
@@ -101,7 +100,7 @@ class ClipElement:
             
             return files
         finally:
-            self._close_clipboard()  # Close the clipboard
+            self._close_clipboard()
 
     def _retrieve_format_ids(self):
         """
