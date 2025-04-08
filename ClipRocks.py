@@ -24,7 +24,6 @@
 """
 
 import os
-# import win32clipboard
 from plugins.pluginBase import plugin_registry
 from plugins.virtualEnvHelper import VirtualEnvHelper
 from plugins.configManager import ConfigManager
@@ -77,22 +76,14 @@ class ClipRocks:
 
         }
 
-        print(self.default_config)
-
-        # stored when config.json exist or just after created.
-        #self.configCache = None
-
         # reads or init and write config ([default_config + derivated_config])
         # note : maybe, can more simple if self.configCache direcly used ? 
-        
-        # self.config = self.initialize_default_config()
         self.config = ConfigManager(self.default_config["abs_dir_script"])
         self.config.initialize_default_config({**self.default_config, **self._calculate_derived_paths()})
 
         """──────────────────────────────────────────────────────────────────────────────────
         VirtuelEnv Initialization (VirtualEnvHelper)
         ─▼─────────────────────────────────────────────────────────────────────────────▼──"""
-        # Initialize virtual env (venv)
         self.venvPath = self.config.read_option("venv")
         self.venv = self._initVirtualEnv(self.venvPath)
 
@@ -116,6 +107,7 @@ class ClipRocks:
         # where to work and save + auto add folder (!!! Note : need self.davinciAPI instanciated)
         self.asset_save_path = self._construct_folder_path(self.config.read_option("assets"))
         self.cache_save_path = self._construct_folder_path(self.config.read_option("cache"))
+
 
         """──────────────────────────────────────────────────────────────────────────────────
         GUI list buttons (GUIManager)
