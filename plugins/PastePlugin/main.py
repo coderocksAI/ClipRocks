@@ -30,7 +30,6 @@ class PastePlugin(PluginBase):
         """
         Activates the plugin if CF_BITMAP (2) is present in the clipboard formats.
         """
-        print(format_ids)
         return {1, 2, 15}.intersection(format_ids)
 
     def execute(self, clipboard_element):
