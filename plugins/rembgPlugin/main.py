@@ -102,22 +102,17 @@ class RemBg(PluginBase):
             if not os.path.exists(script_dest):
                 try:
                     shutil.copyfile(script_source, script_dest)
-                    print(f"Script '{script_name}' copié vers le projet rembg.")
                 except Exception as e:
-                    print(f"Erreur lors de la copie de '{script_name}' : {e}")
-            else:
-                print(f"Script '{script_name}' déjà présent dans le projet rembg.")
+                    print(f"Error copying '{script_name}': {e}")
 
             # Step 2: Get file from lipboard and save in cache to process with rembg
             media = self.extract_image_from_clipboard()
             media.save(self.cache_save_path)
 
-
             # Step 3: Prepare input & output to process
             input_path = media.get_path()
             file_root, file_extension = os.path.splitext(input_path)
             output_path = f"{file_root}-rm{file_extension}"
-
                     
             # Step 4: Prepare the subprocess virtual environment
             venv_path = self.configPlugin.read_option('project_venv')   
@@ -126,7 +121,6 @@ class RemBg(PluginBase):
             env["VIRTUAL_ENV"] = venv_path
             env["PATH"] = os.path.join(venv_path, "Scripts") + ";" + env["PATH"]
             env["U2NET_HOME"] = self.configPlugin.read_option('U2NET_HOME')
-
 
             # Step 5: Call remote cliprembg.py using subprocess with venv project
             process = subprocess.run(
