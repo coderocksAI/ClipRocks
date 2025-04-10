@@ -156,7 +156,7 @@ class Media:
         #     with open(self.path, 'r', encoding="utf-8") as f:
         #         return f.read()
         # self.raw_content = self.get_raw_UNICODETEXT()
-        print("Fonctionnalité non gérée pour l'instant")
+        print("Feature not handled for now")
         exit() 
 
 
