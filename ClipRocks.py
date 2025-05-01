@@ -24,7 +24,6 @@
 """
 
 import os
-from plugins.pluginBase import plugin_registry
 from plugins.virtualEnvHelper import VirtualEnvHelper
 from plugins.configManager import ConfigManager
 from guiManager import GUIManager
