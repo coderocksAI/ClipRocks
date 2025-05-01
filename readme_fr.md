@@ -14,7 +14,6 @@ Cliprocks permet de copier des images, des vidéos ou d'autres éléments intera
 
 Ce projet est encore en évolution. Il est partagé ici dans l'espoir qu'il puisse aider les autres.
 
-J'utilise Cliprocks régulièrement — cela me suffit. <br>
 J'offre cet outil aux personnes qui en ont besoin. <br>
 N'oubliez pas : je n'ai aucune obligation. <br>
 
@@ -29,21 +28,56 @@ N'oubliez pas : je n'ai aucune obligation. <br>
 
 ---
 
-## 🛠 Installation (en construction 🚧)
+## 🛠 Installation du moteur (en construction 🚧)
 
-1. Clonez le code dans le répertoire des scripts de DaVinci Resolve pour qu'il fonctionne correctement.
-Le script doit être placé dans :
-
-Exemple de chemin (Windows) :
-`C:\ProgramData\Blackmagic Design\DaVinci Resolve\Support\Fusion\Scripts\Comp\`
-
+### ✅ 1. Téléchargement
+___
 ```cmd
-cd /d C:\ProgramData\Blackmagic Design\DaVinci Resolve\Support\Fusion\Scripts\Comp\
-
+cd /d "C:\ProgramData\Blackmagic Design\DaVinci Resolve\Support\Fusion\Scripts\Comp\"
 git clone https://github.com/coderocksAI/ClipRocks.git
 ```
+📌 Le dossier Comp doit contenir le dossier ClipRocks, et non ses fichiers directement. (Exemple : \Comp\ClipRocks\cliprocks.py)
 
----
+
+### ✅ 2. Création de config.conf (chemin des modules, assets, etc)
+___
+📌 Ce fichier est généré automatiquement au premier lancement du script.
+Il contient les chemins de base du plugin (modules, assets, venv, etc.) que vous pourrez personnaliser ensuite.
+
+1.  Lancez le script une première fois pour générer le fichier de configuration.
+Dans DaVinci Resolve, allez dans :
+`Workspace > Scripts > Comp > Cliprocks > cliprocks`
+
+2.  Un fichier config.conf sera alors créé automatiquement à cet emplacement : 
+```bat
+C:\ProgramData\Blackmagic Design\DaVinci Resolve\Support\Fusion\Scripts\Comp\ClipRocks\config.conf
+```
+
+### ✅ 3. Préparation de l’environnement Python (venv)
+___
+1. Ouvrez le fichier config.conf généré précédemment et repérez la valeur de la clé venv.
+Ce chemin correspond à l’endroit où seront installés les modules Python nécessaires au bon fonctionnement du plugin.
+
+2. Depuis une console (cmd), appliquez soigneusement les commandes suivantes, une par une :
+
+```bat
+cd /d "chemin\vers\le\dossier"
+python -m venv venv
+venv\Scripts\activate
+pip install pillow requests
+```
+___
+
+## 🛠 Utilisation du moteur
+Pour activer rapidement le menu contextuel de ClipRocks, vous pouvez créer un raccourci clavier dans DaVinci Resolve.  
+Choisissez la touche de votre choix, puis copiez une image depuis votre navigateur web.  
+Appuyez ensuite sur votre raccourci : le menu contextuel du script se lancera automatiquement avec l’image détectée.
+
+## ⚠️ Limites de DaVinci Resolve
+Le script a été conçu pour fonctionner à la fois avec la version gratuite et la version Studio de DaVinci Resolve.  Cependant, depuis la version 19+, Blackmagic a supprimé l’accès à l’API graphique dans la version gratuite. Cela implique quelques contraintes fonctionnelles.
+
+➡️ **Important** : vous devez activer manuellement le script à chaque lancement de DaVinci.  
+Rendez-vous dans le menu : `Workspace > Scripts > Comp > Cliprocks > cliprocks`. Ensuite, enjoy, la touche raccourcie prend le relais.
 
 ## 🤝 Contributions
 
