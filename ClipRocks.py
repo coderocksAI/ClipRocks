@@ -185,6 +185,39 @@ class ClipRocks:
 
         return project_path
 
+    def _load_plugins(self):
+        """
+        Dynamically loads all plugins after virtualenv activation.
+        Each plugin must be in a subdirectory with a 'main.py' file.
+        """
+        """
+        This module automatically discovers and imports all Python modules found in 
+        subdirectories within the 'plugins' directory. Each subdirectory should contain
+        a file named 'main.py'. The name of the imported module is constructed as 
+        'plugins.{subdirectory_name}.main'.
+
+        The script iterates over each item in the 'plugins' directory. If an item is 
+        a directory, it checks for the presence of a 'main.py' file within that directory.
+        If found, it constructs the module name and attempts to import it using 
+        importlib.import_module(). Any ImportError encountered during this process is caught
+        and printed with an error message.
+
+        This approach simplifies the process of managing plugins by automatically importing 
+        them without manual intervention.
+        """
+        plugin_dir = os.path.join(self.config.read_option("abs_dir_script"), "plugins")
+        for plugin_name in os.listdir(plugin_dir):
+            plugin_path = os.path.join(plugin_dir, plugin_name)
+            if os.path.isdir(plugin_path):
+                main_file = os.path.join(plugin_path, "main.py")
+                if os.path.isfile(main_file):
+                    try:
+                        module_name = f"plugins.{plugin_name}.main"
+                        importlib.import_module(module_name)
+                    except ImportError as e:
+                        print(f"Plugin '{plugin_name}' failed to import: {e}")
+
+
     def register_button(self, button_name, plugin_instance):        
         """
         Registers a button with its associated plugin instance and GUI. Once registered, the button 
@@ -247,6 +280,15 @@ class ClipRocks:
         4. after loop, run GUI. 
         """
         format_ids = self.clipboard_element.get_format_ids()
+
+        # activate main venv
+        self.venv.activate_for_current_process()
+
+        # load plugin registry
+        from plugins.pluginBase import plugin_registry
+
+        # dynamic import plugins after venv
+        self._load_plugins()
 
         for plugin_name, plugin_class in plugin_registry.items():
             plugin_instance = None
