@@ -80,6 +80,13 @@ class ClipRocks:
         self.config = ConfigManager(self.default_config["abs_dir_script"])
         self.config.initialize_default_config({**self.default_config, **self._calculate_derived_paths()})
 
+
+        """──────────────────────────────────────────────────────────────────────────────────
+        GUI list buttons (GUIManager)
+        ─▼─────────────────────────────────────────────────────────────────────────────▼──"""
+        self.gui_manager = GUIManager(self)
+
+
         """──────────────────────────────────────────────────────────────────────────────────
         VirtuelEnv Initialization (VirtualEnvHelper)
         ─▼─────────────────────────────────────────────────────────────────────────────▼──"""
@@ -106,12 +113,6 @@ class ClipRocks:
         # where to work and save + auto add folder (!!! Note : need self.davinciAPI instanciated)
         self.asset_save_path = self._construct_folder_path(self.config.read_option("assets"))
         self.cache_save_path = self._construct_folder_path(self.config.read_option("cache"))
-
-
-        """──────────────────────────────────────────────────────────────────────────────────
-        GUI list buttons (GUIManager)
-        ─▼─────────────────────────────────────────────────────────────────────────────▼──"""
-        self.gui_manager = GUIManager(self)
 
 
     def _calculate_derived_paths(self):
@@ -163,7 +164,14 @@ class ClipRocks:
             virtualEnv.activate_for_current_process()
             return virtualEnv
         except Exception as e:
-            raise RuntimeError(f"Failed to initialize virtual environment at {venvPath}. Error: {e}")
+            self.gui_manager.disable_close_focus_out()
+            response = self.gui_manager.show_install_dialog(self.config.read_option("venv"))
+            if response:
+                import webbrowser
+                webbrowser.open_new("https://github.com/coderocksAI/ClipRocks")
+            self.gui_manager.enable_close_focus_out()
+            exit()
+            #raise RuntimeError(f"Failed to initialize virtual environment at {venvPath}. Error: {e}")
 
 
     def _construct_folder_path(self, path):
