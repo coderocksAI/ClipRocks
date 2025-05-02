@@ -48,6 +48,25 @@ class GUIManager:
         self.button_frame = tk.Frame(self.root, bg="#282828")
         self.button_frame.pack(fill=tk.BOTH, expand=True)
 
+
+    def show_install_dialog(self, venvPath):
+        # Show a dialog box
+        response = messagebox.askyesno(
+            title="Missing Modules",
+            message=(
+                "The expected Python modules virtual folder is not found :\n\n"
+                f"{venvPath}\n\n"
+                "To install them manually, follow these steps in a command prompt:\n\n"
+                f"1. cd /d \"{venvPath}\"\n"
+                "2. python -m venv venv\n"
+                "3. venv\\Scripts\\activate\n"
+                "4. pip install pillow requests\n\n"
+                "Do you want to learn more by visiting the project's GitHub page?"
+            )
+        )
+        return response
+
+        
     def disable_close_focus_out(self):
         """
         Disables the automatic closure of the window when it loses focus. This 
