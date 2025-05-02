@@ -23,7 +23,7 @@
 """
 import tkinter as tk
 import win32api     
-
+from tkinter import messagebox
 
 class GUIManager:
     def __init__(self, cliprocks):
@@ -66,7 +66,7 @@ class GUIManager:
         )
         return response
 
-        
+
     def disable_close_focus_out(self):
         """
         Disables the automatic closure of the window when it loses focus. This 
